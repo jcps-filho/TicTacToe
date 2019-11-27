@@ -2,188 +2,214 @@ package jogo;
 
 public class Campo {
 	
-	String campo[][] = new String[3][3];
+	public String campo[][] = new String[3][3];
+	public String campoAuxiliar[][] = new String[3][3];
 	
-	public boolean getPosicao(int posicao) {
+	public int getPosicao(int posicao) {
 		
 		switch (posicao) {
 			case 1:
-				if(campo[0][0].equals(null)) {
-					System.out.println(campo[0][0]);
-					return true;
+				if(campo[0][0] == null) {
+					return 1;
 				} else {
-					System.out.println("Posição já ocupada.");
-					return false;
+					return 0;
 				}
 			
 			case 2:
-				if(campo[0][1] != null) {
-					System.out.println("Posição já ocupada.");
-					return false;
+				if(campo[0][1] == null) {
+					return 1;
 				} else {
-					return true;
+					return 0;
 				}
 			
 			case 3:
-				if(campo[0][2].equals(null)) {
-					System.out.println(campo[0][0]);
-					return true;
+				if(campo[0][2] == null) {
+					return 1;
 				} else {
-					System.out.println("Posição já ocupada.");
-					return false;
+					return 0;
 				}
 			
 			case 4:
-				if(campo[1][0].equals(null)) {
-					System.out.println(campo[0][0]);
-					return true;
+				if(campo[1][0] == null) {
+					return 1;
 				} else {
-					System.out.println("Posição já ocupada.");
-					return false;
+					return 0;
 				}
 			
 			case 5:
-				if(campo[1][1].equals(null)) {
-					System.out.println(campo[0][0]);
-					return true;
+				if(campo[1][1] == null) {
+					return 1;
 				} else {
-					System.out.println("Posição já ocupada.");
-					return false;
+					return 0;
 				}
 			
 			case 6:
-				if(campo[1][2].equals(null)) {
-					System.out.println(campo[0][0]);
-					return true;
+				if(campo[1][2] == null) {
+					return 1;
 				} else {
-					System.out.println("Posição já ocupada.");
-					return false;
+					return 0;
 				}
 			
 			case 7:
-				if(campo[2][0].equals(null)) {
-					System.out.println(campo[0][0]);
-					return true;
+				if(campo[2][0] == null) {
+					return 1;
 				} else {
-					System.out.println("Posição já ocupada.");
-					return false;
+					return 0;
 				}
 			
 			case 8:
-				if(campo[2][1].equals(null)) {
-					System.out.println(campo[0][0]);
-					return true;
+				if(campo[2][1] == null) {
+					return 1;
 				} else {
-					System.out.println("Posição já ocupada.");
-					return false;
+					return 0;
 				}
 				
 			case 9:
-				if(campo[2][2].equals(null)) {
-					System.out.println(campo[0][0]);
-					return true;
+				if(campo[2][2] == null) {
+					return 1;
 				} else {
-					System.out.println("Posição já ocupada.");
-					return false;
+					return 0;
 				}		
 			
 			default:
-				System.out.println("Posição inválida!");
-				return false;			
+				return 2;			
 		}
 		
 	}
 	
-	public boolean setPosicao(String jogador, int posicao) {
-
-		boolean livre = getPosicao(posicao);
+	public int setPosicao(String jogador, int posicao) {
 		
-		if(livre) {
+		int resultado = getPosicao(posicao);
+		
+		if(resultado == 1) {
 			
 			switch (posicao) {
 				case 1: 
 					campo[0][0] = jogador;
-					return true;
+					campoAuxiliar[0][0] = jogador;
+					return 1;
 				
 				case 2: 
 					campo[0][1] = jogador;
-					return true;
+					campoAuxiliar[0][1] = jogador;
+					return 1;
 				
 				case 3:
 					campo[0][2] = jogador;
-					return true;
+					campoAuxiliar[0][2] = jogador;
+					return 1;
 
 				case 4:
 					campo[1][0] = jogador;
-					return true;
+					campoAuxiliar[1][0] = jogador;
+					return 1;
 					
 				case 5:
 					campo[1][1] = jogador;
-					return true;
+					campoAuxiliar[1][1] = jogador;
+					return 1;
 					
 				case 6:
 					campo[1][2] = jogador;
-					return true;
+					campoAuxiliar[1][2] = jogador;
+					return 1;
 					
 				case 7:
 					campo[2][0] = jogador;
-					return true;
+					campoAuxiliar[2][0] = jogador;
+					return 1;
 					
 				case 8:
 					campo[2][1] = jogador;
-					return true;
+					campoAuxiliar[2][1] = jogador;
+					return 1;
 					
 				case 9:
 					campo[2][2] = jogador;
-					return true;
-					
-				default:
-					return false;
+					campoAuxiliar[2][2] = jogador;
+					return 1;
 			}
 		}
 		
-		return false;
+		return resultado;
 		
 	}
 	
-	public void verificarVitoria() {
-		if( campo[0][0].equals("X") && campo[0][1].equals("X") && campo[0][2].equals("X") || 
-			campo[1][0].equals("X") && campo[1][1].equals("X") && campo[1][2].equals("X") ||	
-			campo[2][0].equals("X") && campo[2][1].equals("X") && campo[2][2].equals("X") ||
+	public int verificarVitoria() {
+		int empate = 0;
+		
+		if( campo[0][0] == "X" && campo[0][1] == "X" && campo[0][2] == "X" || 
+			campo[1][0] == "X" && campo[1][1] == "X" && campo[1][2] == "X" ||	
+			campo[2][0] == "X" && campo[2][1] == "X" && campo[2][2] == "X" ||
 			
-			campo[0][0].equals("X") && campo[1][0].equals("X") && campo[2][0].equals("X") || 
-			campo[0][1].equals("X") && campo[1][1].equals("X") && campo[2][1].equals("X") ||	
-			campo[0][2].equals("X") && campo[1][2].equals("X") && campo[2][2].equals("X") ||
+			campo[0][0] == "X" && campo[1][0] == "X" && campo[2][0] == "X" || 
+			campo[0][1] == "X" && campo[1][1] == "X" && campo[2][1] == "X" ||	
+			campo[0][2] == "X" && campo[1][2] == "X" && campo[2][2] == "X" ||
 			
-			campo[0][0].equals("X") && campo[1][1].equals("X") && campo[2][2].equals("X") || 
-			campo[0][2].equals("X") && campo[1][1].equals("X") && campo[2][0].equals("X")) {
+			campo[0][0] == "X" && campo[1][1] == "X" && campo[2][2] == "X" || 
+			campo[0][2] == "X" && campo[1][1] == "X" && campo[2][0] == "X") {
+			
+			return 1;
 			
 		}
+		
+		if( campo[0][0] == "O" && campo[0][1] == "O" && campo[0][2] == "O" || 
+			campo[1][0] == "O" && campo[1][1] == "O" && campo[1][2] == "O" ||	
+			campo[2][0] == "O" && campo[2][1] == "O" && campo[2][2] == "O" ||
+				
+			campo[0][0] == "O" && campo[1][0] == "O" && campo[2][0] == "O" || 
+			campo[0][1] == "O" && campo[1][1] == "O" && campo[2][1] == "O" ||	
+			campo[0][2] == "O" && campo[1][2] == "O" && campo[2][2] == "O" ||
+				
+			campo[0][0] == "O" && campo[1][1] == "O" && campo[2][2] == "O" || 
+			campo[0][2] == "O" && campo[1][1] == "O" && campo[2][0] == "O") {
+			
+			return 2;
+		}
+		
+		for (int i=0; i < campo.length;i++) {
+			for(int j=0; j < campo.length;j++) {
+				if(campo[i][j] != null) {
+					empate++;
+				} 
+			}
+		}
+		
+		if (empate == 9) {
+			return 3;
+		} 
+	
+		return 0;
 	}
 	
-	public void montarCampo() {
+	public void montarCampo(int erro) {
 		
-		String campoAuxiliar[][] = new String[3][3];
-		
-		for(int i=0; i < 10; i++) {
+		for(int i=0; i < 300; i++) {
 			System.out.println(" ");
 		}
 		
 		for (int i=0; i < campo.length;i++) {
 			for(int j=0; j < campo.length;j++) {
 				if(campo[i][j] != null) {
-					campoAuxiliar[i][j] = campo[i][j];
+					continue;
 				} else {
-					campoAuxiliar[i][j] = "    ";
+					campoAuxiliar[i][j] = "";
 				}
 			}
 		}
 		
 		System.out.println("  "+campoAuxiliar[0][0]+" | "+campoAuxiliar[0][1]+" | "+ campoAuxiliar[0][2]);
-		System.out.println("———————————————————————");
+		System.out.println("———————————");
 		System.out.println("  "+campoAuxiliar[1][0]+" | "+campoAuxiliar[1][1]+" | "+ campoAuxiliar[1][2]);
-		System.out.println("———————————————————————");
+		System.out.println("———————————");
 		System.out.println("  "+campoAuxiliar[2][0]+" | "+campoAuxiliar[2][1]+" | "+ campoAuxiliar[2][2]);
+		if(erro != 1) {
+			if(erro == 0) {
+				System.out.println("Posição já ocupada! Tente novamente");
+			} else if(erro == 2) {
+				System.out.println("Posição invalida!");
+			}
+		}
 	}
 
 }

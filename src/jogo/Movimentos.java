@@ -4,7 +4,7 @@ public class Movimentos {
 	
 	Campo campo = new Campo();
 	
-	public boolean jogar(String jogador, int posicao) {
+	public int jogar(String jogador, int posicao) {
 		
 		return campo.setPosicao(jogador, posicao);
 		

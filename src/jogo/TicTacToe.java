@@ -9,17 +9,19 @@ public class TicTacToe {
 
 	public static void main(String[] args) {
 		Campo campo = new Campo();
-		Jogador jogador1 = new Jogador();
-		Jogador jogador2 = new Jogador();
+		Jogador jogador = new Jogador();
 		sc = new Scanner(System.in);
 
 		boolean opcao = true;
 		boolean fimDeJogo = true;
 		int escolha = 0;
+		int turno = 0;
 		int jogada = 0;
+		int vitoria = 0;
+		int resultado = 1;
 
 		System.out.print("Digite um nome para o jogador 1: ");
-		jogador1.setNome(sc.nextLine());
+		jogador.setPlayer1(sc.nextLine());
 		while (opcao) {
 			try {
 				System.out.println("Escolha seu objeto.");
@@ -28,12 +30,12 @@ public class TicTacToe {
 				escolha = sc.nextInt();
 			
 				if (escolha == 1) {
-					jogador1.setObjeto("X");
-					jogador2.setObjeto("O");
+					jogador.setObjeto1("X");
+					jogador.setObjeto2("O");
 					opcao = false;
 				} else if (escolha == 2) {
-					jogador1.setObjeto("O");
-					jogador2.setObjeto("X");
+					jogador.setObjeto1("O");
+					jogador.setObjeto2("X");
 					opcao = false;
 				} else {
 					System.out.println("Opção inválida!");
@@ -49,23 +51,63 @@ public class TicTacToe {
 		
 		sc.nextLine();
 		System.out.println("Digite um nome para o jogador 2: ");
-		jogador2.setNome(sc.nextLine());
+		jogador.setPlayer2(sc.nextLine());
 		
 		while(fimDeJogo) {
 			try {
-			campo.montarCampo();
-			if(jogada == 0) {
-				System.out.print(jogador1.getNome()+" escolha a posição que deseja jogar: ");
-				jogador1.jogar(jogador1.getObjeto(), sc.nextInt());
-				jogada = 1;
-			} else if(jogada == 1) {
-				System.out.println(jogador2.getNome()+" escolha a posição que deseja jogar: ");
-				jogada = 2;
+			campo.montarCampo(resultado);
+			if(turno == 0) {
+ 				System.out.print(jogador.getPlayer1()+" escolha a posição que deseja jogar: ");
+				jogada = sc.nextInt();
+				resultado = campo.setPosicao(jogador.getObjeto1(), jogada);
+				if(resultado == 1) {
+					turno = 1;
+				} else if(resultado == 0){	
+					turno = 2;
+				} else if(resultado == 2) {
+					turno = 2;
+				}
+			} else if(turno == 1) {
+				System.out.println(jogador.getPlayer2()+" escolha a posição que deseja jogar: ");
+				jogada = sc.nextInt();
+				resultado = campo.setPosicao(jogador.getObjeto2(), jogada);
+				if(resultado == 1) {
+					turno = 2;
+				} else if(resultado == 0){
+					turno = 1;
+				} else if(resultado == 2) {
+					turno = 1;
+				}
 			} else {
-				System.out.print(jogador1.getNome()+" escolha a posição que deseja jogar: ");
-				jogada = 1;
+				System.out.print(jogador.getPlayer1()+" escolha a posição que deseja jogar: ");
+				jogada = sc.nextInt();
+				resultado = campo.setPosicao(jogador.getObjeto1(), jogada);
+				if(resultado == 1) {
+					turno = 1;
+				} else if(resultado == 0){
+					turno = 2;
+				} else if(resultado == 2) {
+					turno = 2;
+				}
 			}
-
+			
+			vitoria = campo.verificarVitoria();
+			
+			if(vitoria == 1) {
+				System.out.println("O jogador "+jogador.getPlayer1()+" é o vencedor!");
+				System.out.println("Obrigado por jogar!");
+				System.exit(0);
+			} else if(vitoria == 2) {
+				System.out.println("O jogador "+jogador.getPlayer2()+" é o vencedor!");
+				System.out.println("Obrigado por jogar!");
+				System.exit(0);
+			} else if(vitoria == 3) {
+				System.out.println("Ops! Houve um empate");
+				System.exit(0);
+			}else {
+				continue;
+			}
+			
 			} catch (InputMismatchException e) {
 				System.out.println("Neste campo só é possivel digitar números.");
 				sc.next();
